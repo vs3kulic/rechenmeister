@@ -40,3 +40,6 @@ MANIFEST
 input_csv/
 output_csv/
 output_pdf/
+
+# Internal files
+rechenmeister.txt
