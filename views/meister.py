@@ -1,10 +1,26 @@
 """This module provides a command-line interface for the Rechenmeister invoice automation system."""
+import os
+import glob
+import logging
+from datetime import datetime
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import IntPrompt
 from rich.table import Table
 from rich import box
 
+# Configure logging
+LOGS_DIR = 'logs'
+LOG_NAME = 'action.log'
+os.makedirs(LOGS_DIR, exist_ok=True)
+
+logging.basicConfig(
+    filename = os.path.join(LOGS_DIR, LOG_NAME),
+    level = logging.INFO,
+    format = '%(asctime)s %(levelname)s: %(message)s'
+)
+
+# Initialize the console for rich output
 console = Console()
 
 def main_menu():
@@ -30,13 +46,44 @@ def main_menu():
 
 def ingest_file():
     """Handle the ingestion of the source file."""
+    # Print the ingestion selection message, log the start of the process
     console.print("📥 [green]Ingestion selected.[/green]")
-    # Define the source file path
-    # Define the source file pattern and target directory
-    # Create the target directory if it does not exist
-    # Search for the source file in the Downloads folder
+    logging.info("Started ingestion process.")
+
+    # Define the source file path, file pattern, the list of files and target directory
+    downloads_folder = os.path.expanduser("~/Downloads")
+    source_file_pattern = "Aktivitätsbericht von Alle Aktivitätstypen *.csv"
+    source_file_list = glob.glob(os.path.join(downloads_folder, source_file_pattern))
+    target_directory = "input_csv"
+
+    # Check if the target directory exists, create it if not
+    if not os.path.exists(target_directory):
+        os.makedirs(target_directory)
+        logging.info("Created target directory: %s", target_directory)
+
+    # If no source files are found, log an error and raise an exception
+    if not source_file_list:
+        logging.error("No matching source file found!")
+        raise FileNotFoundError(f"No source file matching pattern '{source_file_pattern}' found in {downloads_folder}.")
+
+    # Get the first source file from the list
+    source_file_path = source_file_list[0]
+    logging.info("Found source file: %s", source_file_path)
+
     # Define the new file name
+    now = datetime.now()
+    new_file_name = f"aktivitaetsbericht-{now.month:02d}-{now.year}.csv"
+    target_file_path = os.path.join(target_directory, new_file_name)
+
     # Move and rename the file
+    try:
+        os.rename(source_file_path, target_file_path)
+        logging.info("File moved and renamed to '%s'.", target_file_path)
+    except Exception as e:
+        logging.error("Failed to move and rename file: %s", e)
+        raise IOError(f"Failed to move and rename file: {e}") from e
+
+    logging.info("Ingestion process completed.")
 
 def process_file():
     """Handle the processing of the source file."""
@@ -57,17 +104,22 @@ def main():
     """The main function to run the Rechenmeister CLI."""
     while True:
         selection = main_menu()
-        if selection == 1:
-            ingest_file()
-        elif selection == 2:
-            process_file()
-        elif selection == 3:
-            generate_invoice()
-        elif selection == 4:
-            inspect_log()
-        elif selection == 5:
-            console.print("👋 [bold blue]Goodbye![/bold blue]")
-            break
+        try:
+            if selection == 1:
+                ingest_file()
+            elif selection == 2:
+                process_file()
+            elif selection == 3:
+                generate_invoice()
+            elif selection == 4:
+                inspect_log()
+            elif selection == 5:
+                console.print("👋 [bold blue]Goodbye![/bold blue]")
+                break
+        except FileNotFoundError as fnf_err:
+            console.print(f"[bold red]Error:[/bold red] {fnf_err}")
+        except IOError as io_err:
+            console.print(f"[bold red]File operation error:[/bold red] {io_err}")
 
 if __name__ == "__main__":
     main()

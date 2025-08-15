@@ -48,3 +48,12 @@ So, you use quotation marks in choices for input validation, but the returned va
 - Discussed best practices for main control flow and error handling in CLI scripts.
 
 ---
+
+### Logging: Lazy Formatting vs. f-strings
+
+- Lazy formatting in logging (e.g., logging.info("File moved: %s", filename)) is better than f-strings because:
+    - The string is only formatted if the log level is enabled, saving CPU and memory.
+    - It avoids unnecessary string interpolation when the log message won’t be output.
+    - It’s safer for logging large or expensive-to-compute values.
+- With f-strings, formatting happens every time, even if the log message is ignored due to log level.
+- Lazy formatting is more efficient and recommended for production code.

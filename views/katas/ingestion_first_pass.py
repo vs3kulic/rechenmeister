@@ -1,5 +1,5 @@
 
-"""This is the first pass for Rechenmeister, implementing the file ingestion functionality."""
+"""This is the first pass for Rechenmeister ingestion, implementing the file ingestion functionality."""
 import os
 import glob
 from datetime import datetime

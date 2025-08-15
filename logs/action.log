@@ -1,0 +1,36 @@
+2025-08-15 16:36:22,688 INFO: Starting ingestion process.
+2025-08-15 16:36:22,688 INFO: Found source file: /Users/vajosekulic/Downloads/Aktivitätsbericht von Alle Aktivitätstypen 2025-08-01-2025-08-01.csv
+2025-08-15 16:36:22,689 INFO: File moved and renamed to 'input_csv/aktivitaetsbericht-08-2025.csv'.
+2025-08-15 16:36:22,689 INFO: Ingestion process completed.
+2025-08-15 16:37:40,676 INFO: Starting ingestion process.
+2025-08-15 16:37:40,676 ERROR: No matching source file found!
+2025-08-15 16:59:11,903 INFO: Started ingestion process.
+2025-08-15 16:59:11,905 ERROR: No matching source file found!
+2025-08-15 17:00:15,569 INFO: Started ingestion process.
+2025-08-15 17:00:15,571 ERROR: No matching source file found!
+2025-08-15 17:01:26,487 INFO: Started ingestion process.
+2025-08-15 17:01:26,488 ERROR: No matching source file found!
+2025-08-15 17:02:12,660 INFO: Starting ingestion process.
+2025-08-15 17:02:12,660 INFO: Found source file: /Users/vajosekulic/Downloads/Aktivitätsbericht von Alle Aktivitätstypen 2025-08-01-2025-08-01.csv
+2025-08-15 17:02:12,661 INFO: File moved and renamed to 'input_csv/aktivitaetsbericht-08-2025.csv'.
+2025-08-15 17:02:12,661 INFO: Ingestion process completed.
+2025-08-15 17:03:36,220 INFO: Started ingestion process.
+2025-08-15 17:03:36,223 INFO: Found source file: /Users/vajosekulic/Downloads/Aktivitätsbericht von Alle Aktivitätstypen 2025-07-01-2025-07-31.csv
+2025-08-15 17:03:36,226 INFO: File moved and renamed to 'input_csv/aktivitaetsbericht-08-2025.csv'.
+2025-08-15 17:03:36,226 INFO: Ingestion process completed.
+2025-08-15 17:03:42,736 INFO: Started ingestion process.
+2025-08-15 17:03:42,737 ERROR: No matching source file found!
+2025-08-15 17:04:57,162 INFO: Started ingestion process.
+2025-08-15 17:04:57,165 INFO: Found source file: /Users/vajosekulic/Downloads/Aktivitätsbericht von Alle Aktivitätstypen 2025-08-01-2025-08-15.csv
+2025-08-15 17:04:57,166 INFO: File moved and renamed to 'input_csv/aktivitaetsbericht-08-2025.csv'.
+2025-08-15 17:04:57,166 INFO: Ingestion process completed.
+2025-08-15 17:14:06,628 INFO: Started ingestion process.
+2025-08-15 17:14:06,629 ERROR: No matching source file found!
+2025-08-15 17:14:52,595 INFO: Started ingestion process.
+2025-08-15 17:14:52,596 ERROR: No matching source file found!
+2025-08-15 17:17:23,916 INFO: Started ingestion process.
+2025-08-15 17:17:23,916 ERROR: No matching source file found!
+2025-08-15 17:22:20,056 INFO: Started ingestion process.
+2025-08-15 17:22:20,057 INFO: Found source file: /Users/vajosekulic/Downloads/Aktivitätsbericht von Alle Aktivitätstypen 2025-08-01-2025-08-15.csv
+2025-08-15 17:22:20,060 INFO: File moved and renamed to 'input_csv/aktivitaetsbericht-08-2025.csv'.
+2025-08-15 17:22:20,060 INFO: Ingestion process completed.
