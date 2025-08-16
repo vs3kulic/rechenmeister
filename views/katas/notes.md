@@ -112,14 +112,37 @@ for row in filtered_rows:
 
 ---
 
-## Next Steps
-- Implement logic for each CLI menu option (ingestion, processing, PDF generation, log inspection).
-- Continue summarizing key learnings and code changes after each interaction.
+## Next Steps: Refactoring the Monolithic Module
 
----
+The current module has grown into a big, fat, hairy monolith with over 350 lines of code handling ingestion, processing, PDF generation, and CLI orchestration all in one place. Time to refactor for maintainability and testability:
 
-## Next Steps
-- Implement logic for each CLI menu option (ingestion, processing, PDF generation, log inspection).
-- Continue summarizing key learnings and code changes after each interaction.
+### Step 1: Divide into 3 Smaller Modules
+- **`ingestion.py`**: Handle file discovery, moving, and renaming from Downloads to input_csv
+- **`processing.py`**: Handle CSV reading, data transformation, calculations, and writing to output_csv
+- **`generation.py`**: Handle PDF creation with tables, styling, and output formatting
+- Keep the main CLI orchestration in `rechenmeister.py` as a thin controller that imports and calls the other modules
+
+### Step 2: Add Test Cases
+- **Unit tests** for each module's core functions (file operations, calculations, PDF structure)
+- **Integration tests** to verify the complete workflow end-to-end
+- **Edge case testing** for missing files, malformed CSV data, permission errors
+- Use pytest with fixtures for test data and temporary directories
+
+### Step 3: Add Configuration and Error Handling
+- **Configuration file** (YAML or JSON) for constants like BASE_HOURLY_RATE, file patterns, trainer names
+- **Robust error handling** with custom exception classes for different failure modes
+- **Input validation** to catch and handle malformed data gracefully
+- **Logging improvements** with different log levels and optional console output
+
+### Additional Future Enhancements
+- Add a `--batch` mode for processing multiple months at once
+- **Dynamic trainer selection**: Allow user to select from available trainers in the input CSV instead of hardcoding "Victoria"
+  - Read the input CSV and extract unique trainer names
+  - Present a rich Table menu for trainer selection
+  - Pass selected trainer to processing function for filtering
+  - Store trainer selection in configuration for future runs
+- Support for multiple trainers with different rates
+- Export to Excel format in addition to PDF
+- Add command-line arguments for non-interactive usage
 
 ---

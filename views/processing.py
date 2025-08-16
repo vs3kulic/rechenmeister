@@ -1,0 +1,1 @@
+"""This module performs the processing of activity exports for the Rechenmeister tool."""

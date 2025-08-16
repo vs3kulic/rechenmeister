@@ -1,0 +1,1 @@
+"""This module performs the generation of PDF invoices for the Rechenmeister tool."""
