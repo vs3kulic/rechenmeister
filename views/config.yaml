@@ -1,0 +1,29 @@
+# Rechenmeister Configuration File
+# This file contains all configurable settings for the invoice automation system
+
+# File Ingestion Settings
+ingestion:
+  source_directory: "~/Downloads"  # Where to look for source files
+  target_directory: "input_csv"    # Where to move processed files
+  source_file_pattern: "Aktivitätsbericht von Alle Aktivitätstypen *.csv"  # Pattern to match source files
+  output_filename_format: "aktivitaetsbericht-{month:02d}-{year}.csv"  # Format for renamed files
+  auto_create_directories: true    # Whether to automatically create missing directories
+
+# Processing Settings  
+processing:
+  base_hourly_rate: 20.0          # Default hourly rate in Euros
+  output_directory: "output_csv"  # Where to save processed CSV files
+  excel_friendly_format: true     # Convert decimal points to commas for Excel
+  
+# PDF Generation Settings
+generation:
+  output_directory: "output_pdf"  # Where to save generated PDFs  
+  filename_format: "invoice-{month:02d}-{year}.pdf"  # Format for PDF filenames
+  table_columns: ["Datum", "Name", "Stundenbetrag"]  # Columns to include in PDF table
+  page_size: "A4"                 # PDF page size
+  
+# Logging Settings
+logging:
+  directory: "logs"               # Directory for log files
+  filename: "action.log"          # Log filename
+  level: "INFO"                   # Logging level (DEBUG, INFO, WARNING, ERROR)

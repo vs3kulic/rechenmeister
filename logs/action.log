@@ -1,0 +1,31 @@
+2025-08-16 19:54:50,877 INFO: Started ingestion process.
+2025-08-16 19:54:50,880 INFO: Found source file: /Users/vajosekulic/Downloads/Aktivitätsbericht von Alle Aktivitätstypen 2025-08-01-2025-08-16.csv
+2025-08-16 19:54:50,880 INFO: File moved and renamed to 'input_csv/aktivitaetsbericht-08-2025.csv'.
+2025-08-16 19:54:50,881 INFO: Ingestion process completed.
+2025-08-16 19:54:57,551 INFO: Started processing file.
+2025-08-16 19:54:57,563 INFO: All required columns are present in the input file.
+2025-08-16 19:54:57,565 INFO: Processed data written to 'output_csv/processed-aktivitaetsbericht-08-2025.csv'.
+2025-08-16 19:55:07,678 INFO: Using processed file: output_csv/processed-aktivitaetsbericht-08-2025.csv
+2025-08-16 19:55:07,682 INFO: Read processed CSV file into DataFrame.
+2025-08-16 19:55:07,682 INFO: Creating PDF document: output_pdf/invoice-08-2025.pdf
+2025-08-16 19:55:07,691 INFO: PDF invoice generated successfully: output_pdf/invoice-08-2025.pdf
+2025-08-16 23:00:51,539 INFO: Using processed file: output_csv/processed-aktivitaetsbericht-08-2025.csv
+2025-08-16 23:00:51,551 INFO: Read processed CSV file into DataFrame.
+2025-08-16 23:00:51,551 INFO: Creating PDF document: output_pdf/invoice-08-2025.pdf
+2025-08-16 23:00:51,559 INFO: PDF invoice generated successfully: output_pdf/invoice-08-2025.pdf
+2025-08-16 23:00:56,579 INFO: Started processing file.
+2025-08-16 23:00:56,585 INFO: All required columns are present in the input file.
+2025-08-16 23:00:56,588 INFO: Processed data written to 'output_csv/processed-aktivitaetsbericht-08-2025.csv'.
+2025-08-16 23:01:02,386 INFO: Started ingestion process.
+2025-08-16 23:01:02,388 ERROR: No matching source file found!
+2025-08-16 23:01:41,449 INFO: Started ingestion process.
+2025-08-16 23:01:41,450 INFO: Found source file: /Users/vajosekulic/Downloads/Aktivitätsbericht von Alle Aktivitätstypen 2025-08-01-2025-08-16.csv
+2025-08-16 23:01:41,452 INFO: File moved and renamed to 'input_csv/aktivitaetsbericht-08-2025.csv'.
+2025-08-16 23:01:41,453 INFO: Ingestion process completed.
+2025-08-16 23:01:46,854 INFO: Started processing file.
+2025-08-16 23:01:46,859 INFO: All required columns are present in the input file.
+2025-08-16 23:01:46,862 INFO: Processed data written to 'output_csv/processed-aktivitaetsbericht-08-2025.csv'.
+2025-08-16 23:01:47,901 INFO: Using processed file: output_csv/processed-aktivitaetsbericht-08-2025.csv
+2025-08-16 23:01:47,904 INFO: Read processed CSV file into DataFrame.
+2025-08-16 23:01:47,905 INFO: Creating PDF document: output_pdf/invoice-08-2025.pdf
+2025-08-16 23:01:47,909 INFO: PDF invoice generated successfully: output_pdf/invoice-08-2025.pdf

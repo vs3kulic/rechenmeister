@@ -15,6 +15,9 @@ from rich.prompt import IntPrompt
 from rich.table import Table
 from rich import box
 
+# Import the ingestion module
+from .ingestion import ingest_file
+
 # CONSTANTS
 BASE_HOURLY_RATE = 20.0  # Default hourly rate in Euros, can be extended to dict or config file
 EXTRA_FIELDS = [
@@ -59,48 +62,6 @@ def main_menu():
     choice = IntPrompt.ask("Choose an option", choices=["1", "2", "3", "99"])
 
     return choice
-
-def ingest_file():
-    """Handle the ingestion of the source file."""
-    # Print the ingestion selection message, log the start of the process
-    console.print("📥 [green]Ingestion selected.[/green]")
-    logging.info("Started ingestion process.")
-
-    # Define the source file path, file pattern, the list of files and target directory
-    downloads_folder = os.path.expanduser("~/Downloads")
-    source_file_pattern = "Aktivitätsbericht von Alle Aktivitätstypen *.csv"
-    source_file_list = glob.glob(os.path.join(downloads_folder, source_file_pattern))
-    target_directory = "input_csv"
-
-    # Check if the target directory exists, create it if not
-    if not os.path.exists(target_directory):
-        os.makedirs(target_directory)
-        logging.info("Created target directory: %s", target_directory)
-
-    # Check if there is a (matching) source file list
-    if not source_file_list:
-        logging.error("No matching source file found!")
-        raise FileNotFoundError(f"No source file matching pattern '{source_file_pattern}' found in {downloads_folder}.")
-
-    # Get the first source file from the list
-    source_file_path = source_file_list[0]
-    logging.info("Found source file: %s", source_file_path)
-
-    # Define the new file name
-    now = datetime.now()
-    new_file_name = f"aktivitaetsbericht-{now.month:02d}-{now.year}.csv"
-    target_file_path = os.path.join(target_directory, new_file_name)
-
-    # Move and rename the file
-    try:
-        os.rename(source_file_path, target_file_path)
-        logging.info("File moved and renamed to '%s'.", target_file_path)
-        print(f"[green]File moved and renamed to '{target_file_path}'.[/green]")
-    except Exception as e:
-        logging.error("Failed to move and rename file: %s", e)
-        raise IOError(f"Failed to move and rename file: {e}") from e
-
-    logging.info("Ingestion process completed.")
 
 def process_file():
     """Handle the processing of the source file."""
@@ -314,14 +275,14 @@ def generate_invoice():
     logging.info("Creating PDF document: %s", pdf_path)
     doc = SimpleDocTemplate(pdf_path, pagesize=A4)
     styles = getSampleStyleSheet()
-    
+
     # Add header
     elements = [
         Spacer(1, 6),
         Paragraph(f"Stundenabrechnung {now.month:02d}/{now.year}", styles['Title']),
         Spacer(1, 12)
     ]
-    
+
     # Add table
     table = build_pdf_table(df)
     elements.append(table)
