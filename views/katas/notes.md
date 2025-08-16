@@ -1,5 +1,61 @@
 # Notes
 
+## CSV values and type conversion
+
+- All values read from a CSV file using Python's `csv` module are strings, even if they look like numbers.
+- To perform calculations, always convert string values to the appropriate type (e.g., `int(row.get("Angemeldet", "0"))`).
+- This avoids bugs and ensures correct math and comparisons.
+
+## Other recent learnings
+
+- When filtering rows, use list comprehensions for clarity and performance: `[row for row in reader if row.get("Status") not in ("Storniert", "Abgesagt")]`.
+- For time calculations, you can convert `HH:MM` to decimal hours using:
+	```python
+	hours, minutes = map(int, time.split(":"))
+	decimal = hours + minutes / 60
+	```
+- When writing output files, use `os.path.basename(input_file)` to preserve the original extension.
+## Python datetime.strptime()
+
+- `datetime.strptime(date_string, format)` converts a string to a `datetime` object using the specified format.
+- Example: `datetime.strptime("17:30", "%H:%M")` parses the string "17:30" as a time (5:30 PM).
+- Common format codes:
+	- `%Y`: Year (e.g., 2025)
+	- `%m`: Month (01-12)
+	- `%d`: Day (01-31)
+	- `%H`: Hour (00-23)
+	- `%M`: Minute (00-59)
+	- `%S`: Second (00-59)
+- Useful for converting time strings from CSV files to Python objects for calculations.
+
+The implemenation would look like this:
+
+```Python
+for row in filtered_rows:
+        start_time = datetime.strptime(row["Startzeit"], "%H:%M")
+        end_time = datetime.strptime(row["Endzeit"], "%H:%M")
+        timedelta = end_time - start_time # Calculate the duration as a timedelta object
+        duration = timedelta.total_seconds() / 3600
+        row["Dauer"] = f"{duration:.1f}"  # Add a new column with duration formatted to one decimal place
+```
+
+## Learnings: Filtering and Pandas vs. Python CSV
+
+- When working with CSV files in Python, always check the delimiter. Pandas defaults to commas, but many European exports use semicolons (`;`). Use `pd.read_csv(filename, delimiter=';')` for such files.
+- To filter rows in pandas, use boolean indexing: `df = df[df["Status"] != "Storniert"]`. This creates a new DataFrame with only the desired rows.
+- In pure Python, use the `csv.DictReader` and build a new list with only the rows you want:
+	```python
+	import csv
+	filtered_rows = []
+	with open(filename, newline='', encoding='utf-8') as csvfile:
+			reader = csv.DictReader(csvfile, delimiter=';')
+			for row in reader:
+					if row.get("Status") != "Storniert":
+							filtered_rows.append(row)
+	```
+- It is more pythonic and safer to build a new list of filtered rows than to remove items from a list while iterating.
+- If columns are reported missing by pandas, check the delimiter and column names for typos or encoding issues.
+
 ## CLI-Tool Features and Learnings
 
 ### Key Features

@@ -61,7 +61,7 @@ def ingest_file():
         os.makedirs(target_directory)
         logging.info("Created target directory: %s", target_directory)
 
-    # If no source files are found, log an error and raise an exception
+    # Check if there is a (matching) source file list
     if not source_file_list:
         logging.error("No matching source file found!")
         raise FileNotFoundError(f"No source file matching pattern '{source_file_pattern}' found in {downloads_folder}.")
