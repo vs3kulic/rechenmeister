@@ -18,7 +18,8 @@ EXTRA_FIELDS = [
         "Stundensatz-Basis",
         "Anmeldequote",
         "Bonus-Faktor",
-        "Stundensatz-Final"
+        "Stundensatz-Final",
+        "Stundenbetrag"
     ]
 
 # Configure logging
@@ -116,7 +117,7 @@ def process_file():
     # Define the output file path
     output_folder = "output_csv"
     os.makedirs(output_folder, exist_ok=True)
-    output_file = os.path.join(output_folder, f"processed_{os.path.basename(input_file)}")    
+    output_file = os.path.join(output_folder, f"processed-{os.path.basename(input_file)}")
 
     # Read the CSV file as a DataFrame, check for missing columns
     dataframe = pd.read_csv(input_file, delimiter = ";")
@@ -141,7 +142,7 @@ def process_file():
         fieldnames = [head.strip() for head in reader.fieldnames]
 
         # Filter rows based on status and trainer
-        filtered_rows = [row for row in reader 
+        filtered_rows = [row for row in reader
                          if row.get("Status") not in ("Storniert", "Abgesagt")
                          and row.get("Trainer") == "Victoria"
                          ]
@@ -182,6 +183,10 @@ def process_file():
     for row in filtered_rows:
         row["Stundensatz-Final"] = f"{float(row['Stundensatz-Basis']) * float(row['Bonus-Faktor']):.2f}"
 
+    # Add a new column "Stundenbetrag" - Total hourly rate
+    for row in filtered_rows:
+        row["Stundenbetrag"] = f"{float(row['Stundensatz-Final']) * float(row['Dauer-in-Stunden']):.2f}"
+
     # Calculate the total hours
     total_hours = sum(float(row["Dauer-in-Stunden"]) for row in filtered_rows)
 
@@ -207,12 +212,32 @@ def process_file():
         console.print("[bold red]Error:[/bold red] No valid classes found in the input file after filtering.")
         raise ValueError("No valid classes found in the input file after filtering.")
 
-    # Write the CSV
+    # Add summary row as the final line
+    summary_row = {key: "" for key in fieldnames}
+    summary_row["Datum"] = "Gesamt (Monat)"
+    summary_row["Dauer-in-Stunden"] = f"{total_hours:.1f}"
+    summary_row["Stundenbetrag"] = f"{total_payment:.2f}"
+
+    def excel_friendly(value):
+        """Convert a value to a format suitable for Excel."""
+        if isinstance(value, str) and "." in value:
+            return value.replace(".", ",")
+        return value
+
+    for row in filtered_rows:
+        for col in ["Dauer-in-Stunden", "Stundensatz-Basis", "Bonus-Faktor", "Stundensatz-Final", "Stundenbetrag"]:
+            if col in row:
+                row[col] = excel_friendly(str(row[col]))
+
+    for col in ["Dauer-in-Stunden", "Stundenbetrag"]:
+        summary_row[col] = excel_friendly(str(summary_row[col]))
+
     try:
         with open(output_file, 'w', newline='', encoding="utf-8") as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=";")
             writer.writeheader()
             writer.writerows(filtered_rows)
+            writer.writerow(summary_row)
         logging.info("Processed data written to '%s'.", output_file)
         console.print(f"🛠 [green]Processing completed. Processed data written to {output_file}.[/green]")
     except Exception as e:
