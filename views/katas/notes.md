@@ -3,7 +3,9 @@
 ## Running the Application
 
 ### Run as module (package structure)
+```bash 
 python -m views.rechenmeister
+```
 
 ### Explanation
 
@@ -11,7 +13,7 @@ python -m views.rechenmeister
 • **Package Structure**: Following Python packaging standards makes the code more maintainable and allows for proper distribution via pip/PyPI
 • **Namespace Management**: Module execution keeps all code within proper package namespaces, preventing naming conflicts and import pollution  
 • **Development Best Practices**: Industry standard approach that makes the codebase familiar to other Python developers and easier to integrate with testing frameworks
-• **Future-Proof Architecture**: Module structure supports advanced features like entry points, plugin systems, and proper dependency management
+• **Future-Proof Architecture**: Module structure supports advanced features like entry points, plugin systems, and dependency management
 
 
 ## CSV values and type conversion
