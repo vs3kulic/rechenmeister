@@ -10,7 +10,7 @@ class Config:
         """Load configuration from YAML file."""
         config_path = config_path or Path(__file__).parent / "config.yaml"
         self.config_path = config_path
-        self._config = self._load_config()
+        self.config = self._load_config()
     
     def _load_config(self):
         """Load configuration from YAML file."""
@@ -23,7 +23,7 @@ class Config:
     
     def get(self, section, key, default=None):
         """Get a configuration value."""
-        return self._config.get(section, {}).get(key, default)
+        return self.config.get(section, {}).get(key, default)
     
     # Ingestion settings
     @property
@@ -55,6 +55,10 @@ class Config:
     def processing_output_directory(self):
         return self.get('processing', 'output_directory')
     
+    @property
+    def extra_fields(self):
+        return self.get('processing', 'extra_fields', [])
+
     # Generation settings
     @property
     def generation_output_directory(self):

@@ -146,3 +146,210 @@ The current module has grown into a big, fat, hairy monolith with over 350 lines
 - Add command-line arguments for non-interactive usage
 
 ---
+
+## Configuration File Formats: YAML vs JSON
+
+When choosing a format for configuration files, YAML generally wins over JSON for several reasons:
+
+### YAML Advantages
+**1. Human Readability & Comments**
+```yaml
+# Processing Settings - these control how invoices are calculated
+processing:
+  base_hourly_rate: 20.0    # Default rate in Euros
+  bonus_multiplier: 1.5     # Applied for high attendance
+```
+
+**2. Less Syntax Noise** - No quotes around keys, no trailing commas
+**3. Multi-line Strings** - Perfect for descriptions or SQL queries
+**4. Industry Standard** - Docker Compose, Kubernetes, GitHub Actions all use YAML
+
+### When JSON Might Be Better
+- **Performance**: JSON parsing is faster
+- **Ubiquity**: Every programming language supports JSON natively
+- **Data Exchange**: Better for APIs and data transfer
+- **Validation**: Easier schema validation with JSON Schema
+
+### Our Choice
+For Rechenmeister, YAML is perfect because:
+- Humans need to read/modify settings (rates, paths, etc.)
+- Comments explain what each setting does
+- Multi-line descriptions are useful for complex configurations
+- It's more maintainable for configuration management
+
+---
+
+## Refactoring Success: From Monolith to Beautiful Pipeline
+
+**Date:** August 17, 2025
+
+Successfully refactored the monolithic `processing.py` module from a single 164-line function into a clean, pipeline-based architecture.
+
+### Before: The Monolith Problem
+```python
+def process_file():
+    # 164 lines of mixed responsibilities:
+    # - File discovery and validation
+    # - CSV parsing and filtering  
+    # - Time calculations and conversions
+    # - Bonus factor applications
+    # - Excel formatting
+    # - File output operations
+    # Hard to test, debug, modify, or understand
+```
+
+### After: Beautiful Logical Sub-modules
+```python
+def process_file():
+    """Clean 4-step orchestrator"""
+    input_file = discover_input_file()
+    raw_data = load_and_validate_csv(input_file)
+    processed_data = transform_data(raw_data)
+    output_file = save_processed_data(processed_data, input_file)
+```
+
+### Refactored Function Structure
+
+**📂 Data Discovery & Loading**
+- `discover_input_file()` - Finds the input CSV file
+- `load_and_validate_csv()` - Loads data and validates required columns
+
+**⚙️ Data Transformation Pipeline**
+- `add_duration_calculations()` - Converts HH:MM to decimal hours
+- `add_base_rates()` - Applies hourly rates from config
+- `add_attendance_metrics()` - Calculates attendance percentages
+- `apply_bonus_factors()` - Applies attendance-based bonuses (100%=2x, 50%=1.5x)
+- `calculate_final_amounts()` - Calculates final payments per class
+- `add_summary_row()` - Adds monthly totals row
+
+**💾 Data Preparation & Output**  
+- `prepare_fieldnames()` - Ensures all required fields are present
+- `format_for_excel()` - Converts decimals (dots to commas) for Excel
+- `save_processed_data()` - Writes final CSV with proper formatting
+
+**🎭 Orchestration**
+- `transform_data()` - Runs all transformations in sequence
+- `process_file()` - Main coordinator (reduced to 25 lines!)
+
+### Key Benefits Achieved
+
+✅ **Single Responsibility Principle** - Each function does exactly one thing  
+✅ **Testability** - Easy to unit test individual transformation steps  
+✅ **Readability** - Clear pipeline flow with visual progress indicators  
+✅ **Maintainability** - Business logic changes are isolated to specific functions  
+✅ **Debuggability** - Can run and test individual transformation steps  
+✅ **Professional Code Quality** - Clean data structures flow through pipeline  
+
+### Visual Progress Indicators
+Each transformation step shows progress:
+```
+⚙️ Calculating class durations...
+⚙️ Applying base hourly rates...  
+⚙️ Calculating attendance metrics...
+⚙️ Applying bonus factors...
+⚙️ Calculating final payment amounts...
+⚙️ Adding summary totals...
+⚙️ Formatting for Excel compatibility...
+```
+
+### Technical Implementation Notes
+- **Data Structure:** Uses consistent `{"fieldnames": [...], "rows": [...]}` format
+- **Error Handling:** Proper exceptions with logging and user-friendly console messages  
+- **Configuration Integration:** Uses `config.base_hourly_rate` and `config.extra_fields`
+- **Pipeline Pattern:** Functional approach where each step takes data and returns transformed data
+
+This refactoring demonstrates the transformation from "works but ugly" code to professional, maintainable software architecture.
+
+---
+
+## Functional Pipeline Pattern: The Heart of Beautiful Data Processing
+
+**Date:** August 17, 2025
+
+During the processing.py refactoring, we implemented a beautiful **functional pipeline pattern** that deserves special attention:
+
+### The Core Pattern
+```python
+def transform_data(raw_data):
+    """Apply all transformation steps to the raw data."""
+    transformations = [
+        add_duration_calculations,
+        add_base_rates,
+        add_attendance_metrics,
+        apply_bonus_factors,
+        calculate_final_amounts,
+        add_summary_row,
+        prepare_fieldnames,
+        format_for_excel,
+    ]
+
+    data = raw_data
+    for transform in transformations:
+        data = transform(data)
+    
+    return data
+```
+
+### How It Works Step-by-Step
+
+1. **Start with raw data**: `data = raw_data` (contains fieldnames and filtered rows)
+
+2. **Apply each transformation sequentially**: The loop calls each function in the transformations list, where each function takes the current data state and returns the enhanced data state.
+
+3. **Data flows through the pipeline**:
+   ```
+   Raw CSV Data 
+       ↓
+   add_duration_calculations() → Data with "Dauer-in-Stunden" 
+       ↓
+   add_base_rates() → Data with base hourly rates
+       ↓  
+   add_attendance_metrics() → Data with attendance percentages
+       ↓
+   apply_bonus_factors() → Data with bonus multipliers
+       ↓
+   calculate_final_amounts() → Data with final payments
+       ↓
+   add_summary_row() → Data with monthly totals
+       ↓
+   prepare_fieldnames() → Data with all fields
+       ↓
+   format_for_excel() → Final processed data
+   ```
+
+### Why This Pattern is Brilliant
+
+- **🔗 Composable**: Easy to add/remove/reorder transformations by modifying the list
+- **🧪 Testable**: Each step can be tested independently with known input/output
+- **📖 Readable**: The pipeline clearly shows the data transformation flow
+- **🔧 Maintainable**: Changes to one step don't affect others (single responsibility)
+- **🎯 Functional**: Each function is pure - takes data, returns transformed data
+- **🚀 Scalable**: Can easily parallelize or optimize individual steps
+
+### Technical Benefits
+
+**Function Signature Pattern**: All transformation functions follow the same signature:
+```python
+def transform_step(data: dict) -> dict:
+    # Modify data["rows"] and/or data structure
+    return data
+```
+
+**Immutable-Style Processing**: While we modify the data dict for performance, the pattern encourages thinking about data transformations as pure functions.
+
+**Error Isolation**: If one transformation fails, it's immediately clear which step caused the problem.
+
+**Visual Progress**: Each step provides console feedback, making the pipeline execution transparent to users.
+
+### Alternative Implementations
+
+This pattern is also known as **"Pipes and Filters"** architecture and could be implemented with:
+
+- **Functional reduce**: `data = functools.reduce(lambda d, f: f(d), transformations, raw_data)`
+- **Method chaining**: `data.add_duration().add_rates().add_metrics()...` 
+- **Async pipelines**: For I/O bound transformations
+- **Stream processing**: For large datasets that don't fit in memory
+
+This pipeline pattern is a cornerstone of functional programming and data processing systems, making complex transformations both understandable and maintainable.
+
+---

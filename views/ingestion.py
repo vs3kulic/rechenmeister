@@ -4,7 +4,7 @@ import glob
 import logging
 from datetime import datetime
 from rich.console import Console
-from .config import config
+from config import config
 
 # Initialize the console for rich output
 console = Console()
@@ -19,7 +19,7 @@ def ingest_file():
     downloads_folder = config.source_directory
     source_file_pattern = config.source_file_pattern
     target_directory = config.target_directory
-    
+
     source_file_list = glob.glob(os.path.join(downloads_folder, source_file_pattern))
 
     # Check if the target directory exists, create it if not

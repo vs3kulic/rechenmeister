@@ -29,3 +29,33 @@
 2025-08-16 23:01:47,904 INFO: Read processed CSV file into DataFrame.
 2025-08-16 23:01:47,905 INFO: Creating PDF document: output_pdf/invoice-08-2025.pdf
 2025-08-16 23:01:47,909 INFO: PDF invoice generated successfully: output_pdf/invoice-08-2025.pdf
+2025-08-17 10:01:56,588 INFO: Started ingestion process.
+2025-08-17 10:01:56,592 ERROR: No matching source file found!
+2025-08-17 10:01:57,534 INFO: Started processing file.
+2025-08-17 10:01:57,544 INFO: All required columns are present in the input file.
+2025-08-17 10:02:58,390 INFO: Started processing file.
+2025-08-17 10:02:58,398 INFO: All required columns are present in the input file.
+2025-08-17 10:06:53,403 INFO: Started ingestion process.
+2025-08-17 10:06:53,409 ERROR: No matching source file found!
+2025-08-17 10:06:53,989 INFO: Started processing file.
+2025-08-17 10:06:53,999 INFO: All required columns are present in the input file.
+2025-08-17 10:06:54,001 INFO: Processed data written to 'output_csv/processed-aktivitaetsbericht-08-2025.csv'.
+2025-08-17 10:06:54,493 INFO: Using processed file: output_csv/processed-aktivitaetsbericht-08-2025.csv
+2025-08-17 10:06:54,499 INFO: Read processed CSV file into DataFrame.
+2025-08-17 10:06:54,499 INFO: Creating PDF document: output_pdf/invoice-08-2025.pdf
+2025-08-17 10:06:54,510 INFO: PDF invoice generated successfully: output_pdf/invoice-08-2025.pdf
+2025-08-17 10:10:51,697 INFO: Started ingestion process.
+2025-08-17 10:10:51,701 ERROR: No matching source file found!
+2025-08-17 10:10:52,226 INFO: Started processing file.
+2025-08-17 10:10:52,237 INFO: All required columns are present in the input file.
+2025-08-17 10:10:52,240 INFO: Processed data written to 'output_csv/processed-aktivitaetsbericht-08-2025.csv'.
+2025-08-17 10:10:52,672 INFO: Using processed file: output_csv/processed-aktivitaetsbericht-08-2025.csv
+2025-08-17 10:10:52,678 INFO: Read processed CSV file into DataFrame.
+2025-08-17 10:10:52,679 INFO: Creating PDF document: output_pdf/invoice-08-2025.pdf
+2025-08-17 10:10:52,688 INFO: PDF invoice generated successfully: output_pdf/invoice-08-2025.pdf
+2025-08-17 10:25:06,330 INFO: Started processing file.
+2025-08-17 10:25:06,333 INFO: Using input file: input_csv/aktivitaetsbericht-08-2025.csv
+2025-08-17 10:25:06,344 INFO: All required columns are present in the input file.
+2025-08-17 10:25:06,345 INFO: Loaded 4 valid classes for processing.
+2025-08-17 10:25:06,349 INFO: Processed data written to 'output_csv/processed-aktivitaetsbericht-08-2025.csv'.
+2025-08-17 10:25:06,349 INFO: Processing completed successfully.

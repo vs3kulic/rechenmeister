@@ -14,6 +14,13 @@ processing:
   base_hourly_rate: 20.0          # Default hourly rate in Euros
   output_directory: "output_csv"  # Where to save processed CSV files
   excel_friendly_format: true     # Convert decimal points to commas for Excel
+  extra_fields:                   # Additional fields to add to processed CSV
+    - "Dauer-in-Stunden"
+    - "Stundensatz-Basis"
+    - "Anmeldequote"
+    - "Bonus-Faktor"
+    - "Stundensatz-Final"
+    - "Stundenbetrag"
   
 # PDF Generation Settings
 generation:
