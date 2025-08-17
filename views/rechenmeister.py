@@ -6,10 +6,10 @@ from rich.panel import Panel
 from rich.prompt import IntPrompt
 from rich.table import Table
 from rich import box
-from ingestion import ingest_file
-from processing import process_file
-from generation import generate_invoice
-from config import config
+from views.ingestion import ingest_file
+from views.processing import process_file
+from views.generation import generate_invoice
+from views.config import config
 
 # Configure logging
 logging.basicConfig(

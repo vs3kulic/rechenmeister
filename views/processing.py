@@ -5,7 +5,7 @@ import logging
 import pandas as pd
 import csv
 from rich.console import Console
-from config import config
+from views.config import config
 
 # Initialize the console for rich output
 console = Console()

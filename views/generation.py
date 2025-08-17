@@ -9,8 +9,6 @@ from reportlab.platypus import SimpleDocTemplate, Table as PDFTable, TableStyle,
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from rich.console import Console
-from ingestion import ingest_file
-from processing import process_file
 
 # Initialize the console for rich output
 console = Console()

@@ -1,5 +1,19 @@
 # Notes
 
+## Running the Application
+
+### Run as module (package structure)
+python -m views.rechenmeister
+
+### Explanation
+
+• **Import Resolution**: Running as a module ensures Python's import system works correctly with relative imports, avoiding `sys.path.append('..')` hacks
+• **Package Structure**: Following Python packaging standards makes the code more maintainable and allows for proper distribution via pip/PyPI
+• **Namespace Management**: Module execution keeps all code within proper package namespaces, preventing naming conflicts and import pollution  
+• **Development Best Practices**: Industry standard approach that makes the codebase familiar to other Python developers and easier to integrate with testing frameworks
+• **Future-Proof Architecture**: Module structure supports advanced features like entry points, plugin systems, and proper dependency management
+
+
 ## CSV values and type conversion
 
 - All values read from a CSV file using Python's `csv` module are strings, even if they look like numbers.

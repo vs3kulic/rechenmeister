@@ -4,7 +4,7 @@ import glob
 import logging
 from datetime import datetime
 from rich.console import Console
-from config import config
+from views.config import config
 
 # Initialize the console for rich output
 console = Console()
