@@ -59,3 +59,15 @@
 2025-08-17 10:25:06,345 INFO: Loaded 4 valid classes for processing.
 2025-08-17 10:25:06,349 INFO: Processed data written to 'output_csv/processed-aktivitaetsbericht-08-2025.csv'.
 2025-08-17 10:25:06,349 INFO: Processing completed successfully.
+2025-08-18 18:13:44,037 INFO: Started ingestion process.
+2025-08-18 18:13:44,040 ERROR: No matching source file found!
+2025-08-18 18:13:44,937 INFO: Started processing file.
+2025-08-18 18:13:44,938 INFO: Using input file: input_csv/aktivitaetsbericht-08-2025.csv
+2025-08-18 18:13:44,947 INFO: All required columns are present in the input file.
+2025-08-18 18:13:44,948 INFO: Loaded 4 valid classes for processing.
+2025-08-18 18:13:44,951 INFO: Processed data written to 'output_csv/processed-aktivitaetsbericht-08-2025.csv'.
+2025-08-18 18:13:44,952 INFO: Processing completed successfully.
+2025-08-18 18:13:46,628 INFO: Using processed file: output_csv/processed-aktivitaetsbericht-08-2025.csv
+2025-08-18 18:13:46,632 INFO: Read processed CSV file into DataFrame.
+2025-08-18 18:13:46,632 INFO: Creating PDF document: output_pdf/invoice-08-2025.pdf
+2025-08-18 18:13:46,641 INFO: PDF invoice generated successfully: output_pdf/invoice-08-2025.pdf
