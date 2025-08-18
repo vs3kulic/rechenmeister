@@ -1,1 +1,0 @@
-# Rechenmeister package initialization
