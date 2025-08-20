@@ -11,6 +11,7 @@ class Config:
         config_path = config_path or Path(__file__).parent / "config.yaml"
         self.config_path = config_path
         self.config = self._load_config()
+        self.testing_mode = os.getenv("TESTING_MODE", "false").lower() == "true"
     
     def _load_config(self):
         """Load configuration from YAML file."""
@@ -23,6 +24,8 @@ class Config:
     
     def get(self, section, key, default=None):
         """Get a configuration value."""
+        if self.testing_mode and section == "ingestion":
+            section = "ingestion_testing"
         return self.config.get(section, {}).get(key, default)
     
     # Ingestion settings

@@ -9,6 +9,13 @@ ingestion:
   output_filename_format: "aktivitaetsbericht-{month:02d}-{year}.csv"  # Format for renamed files
   auto_create_directories: true    # Whether to automatically create missing directories
 
+ingestion_testing:
+  source_directory: "tests/mock_Downloads"  # Directory for test files
+  target_directory: "tests/mock_input_csv"  # Directory for processed test files
+  source_file_pattern: "*.csv"                # Pattern to match test files
+  output_filename_format: "aktivitaetsbericht-{month:02d}-{year}.csv"  # Format for renamed files
+  auto_create_directories: true    # Whether to automatically create missing directories
+
 # Processing Settings  
 processing:
   base_hourly_rate: 20.0          # Default hourly rate in Euros

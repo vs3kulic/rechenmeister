@@ -50,3 +50,40 @@ rechenmeister/
 - Check the `logs/` directory for detailed logs in case of errors or unexpected behavior.
 - Output files will be saved in the `output_csv/` and `output_pdf/` directories.
 
+## Testing
+
+The Rechenmeister CLI tool includes unit tests to ensure the functionality of its modules. The tests are written using Python's built-in `unittest` framework.
+
+### Setting Up Testing Mode
+To run the tests, you need to enable the testing mode by setting the `TESTING_MODE` environment variable to `true`. This ensures that the application uses the testing-specific configuration defined in the `config.yaml` file.
+
+#### Steps to Enable Testing Mode
+1. Open your terminal.
+2. Set the `TESTING_MODE` environment variable:
+   ```bash
+   export TESTING_MODE=true
+   ```
+3. Run the tests using the following command:
+   ```bash
+   python -m unittest discover tests
+   ```
+
+### Configuration for Testing
+The `config.yaml` file includes dedicated sections for testing configurations e.g., `ingestion_testing`. This section defines the directories and file patterns used during testing. For example:
+
+```yaml
+ingestion_testing:
+  source_directory: tests/mock_source_dir
+  target_directory: tests/mock_target_dir
+  source_file_pattern: "*.csv"
+```
+
+When `TESTING_MODE` is set to `true`, the application automatically uses the `ingestion_testing` configuration instead of the production `ingestion` configuration.
+
+### Notes
+- Ensure that the mock directories and files required for testing are set up before running the tests.
+- Reset the `TESTING_MODE` environment variable to `false` after testing to return to production mode:
+  ```bash
+  export TESTING_MODE=false
+  ```
+
