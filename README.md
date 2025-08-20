@@ -13,6 +13,7 @@ Automated invoice generation system for partners based on a class-based flat rat
   - PDF Generation: Render invoice data from CSV to PDF and save to `output_pdf/`.
   - Log Inspection: View operation logs for auditing and troubleshooting.
 - Modular codebase: CSV I/O, data transformation, PDF rendering, and logging are separated into distinct components.
+- Testing is supported through Python's built-in `unittest` framework.
 
 ## Project Structure
 
@@ -21,6 +22,7 @@ rechenmeister/
 ├── configs/          # Configuration files (e.g., config.yaml)
 ├── input_csv/        # Input CSV files for processing
 ├── logs/             # Log files for auditing
+├── tests/            # Testing directories and files
 ├── modules/          # Core application modules
 │   ├── ingestion.py  # Handles file ingestion
 │   ├── processing.py # Data processing logic
